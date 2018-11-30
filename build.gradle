@@ -1,0 +1,47 @@
+group 'zio'
+version '1.0-SNAPSHOT'
+
+buildscript {
+    ext.kotlin_version = '1.1.4'
+
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+apply plugin: 'scala'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+configurations {
+    scalaCompilerPlugin
+}
+
+dependencies {
+    compile group: 'org.scalaz', name: 'scalaz-zio_2.12', version: '0.3.2'
+    compile group: 'org.scalaz', name: 'scalaz-zio-interop_2.12', version: '0.3.2'
+    compile group: 'co.fs2', name: 'fs2-core_2.12', version: '1.0.0'
+    compile group: 'co.fs2', name: 'fs2-io_2.12', version: '1.0.0'
+    compile group: 'org.typelevel', name: 'cats-core_2.12', version: '1.4.0'
+    compile group: 'org.typelevel', name: 'cats-effect_2.12', version: '1.0.0'
+    compile group: 'com.github.mpilquist', name: 'simulacrum_2.12', version: '0.14.0'
+    testCompile group: 'org.scalacheck', name: 'scalacheck_2.12', version: '1.14.0'
+    testCompile group: 'org.scalatest', name: 'scalatest_2.12', version: '3.0.5'
+    testCompile group: 'org.typelevel', name: 'cats-laws_2.12', version: '1.4.0'
+    testCompile group: 'org.typelevel', name: 'cats-testkit_2.12', version: '1.4.0'
+    compile("org.scala-lang:scala-library:2.12.3")
+    scalaCompilerPlugin "org.scalamacros:paradise_2.12.7:2.1.0"
+}
+
+tasks.withType(ScalaCompile) {
+    scalaCompileOptions.additionalParameters = [
+            "-Xplugin:" + configurations.scalaCompilerPlugin.asPath
+    ]
+}
