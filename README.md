@@ -1,4 +1,4 @@
 # sensor-statistics
-A simple programming assignment solved in scala using functional programming approach (Cats IO / fs2)
+A simple programming assignment solved in scala using functional programming approach (Cats IO / fs2).
 
 See [requirements](requirements.md)
